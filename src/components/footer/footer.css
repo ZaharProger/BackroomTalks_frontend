@@ -1,0 +1,26 @@
+#Footer {
+    flex-direction: row;
+    background-color: var(--text-color);
+    bottom: 0;
+}
+
+#Footer > img {
+    margin-right: 10px;
+    width: 30px;
+}
+
+#Footer > span {
+    color: var(--content-bg-color);
+    text-align: center;
+}
+
+@media screen and (max-width: 300px) {
+    #Footer {
+        flex-direction: column;
+    }
+
+    #Footer > img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

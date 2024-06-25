@@ -1,0 +1,66 @@
+.message-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+.opposite-message-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.message {
+    border-radius: 20px;
+    border: 2px solid var(--secondary-color);
+    background-color: var(--content-bg-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.opposite-message {
+    border-radius: 20px;
+    border: 2px solid var(--secondary-opposite-color);
+    background-color: var(--content-bg-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.message > p, .opposite-message > p {
+    color: var(--text-color);
+    padding: 5px 3px;
+}
+
+.message-author {
+    color: var(--secondary-color);
+    display: flex;
+    margin-left: auto;
+    margin-bottom: 5px;
+}
+
+.opposite-message-author {
+    color: var(--secondary-opposite-color);
+    display: flex;
+    margin-right: auto;
+    margin-bottom: 5px
+}
+
+.message-time {
+    color: var(--content-bg-color);
+    padding: 3px 3px 3px 10px;
+    border-radius: 20px 0 20px 0;
+    background-color: var(--secondary-color);
+    display: flex;
+    margin-left: auto;
+}
+
+.message-opposite-time {
+    color: var(--content-bg-color);
+    padding: 3px 3px 3px 10px;
+    border-radius: 20px 0 20px 0;
+    background-color: var(--secondary-opposite-color);
+    display: flex;
+    margin-left: auto;
+}
