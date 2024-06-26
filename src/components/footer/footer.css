@@ -14,7 +14,7 @@
     text-align: center;
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 330px) {
     #Footer {
         flex-direction: column;
     }
