@@ -1,8 +1,8 @@
 :root {
     --primary-color: #E7E7E7;
     --content-bg-color: white;
-    --text-color: black;
-    --secondary-color: #6C35E2;
+    --text-color: #4b5563;
+    --secondary-color: #8b5cf6;
     --secondary-opposite-color: #3874CE;
 }
 
@@ -13,25 +13,30 @@ body {
 }
 
 .header-text {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif!important;
     font-size: 1.3em!important;
-    font-weight: 600;
+    font-weight: 600!important;
 }
 
 .semi-header-text {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif!important;
     font-size: 1.1em!important;
-    font-weight: 600;
+    font-weight: 600!important;
 }
 
 .regular-text {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif!important;
     font-size: 1em!important;
-    font-weight: 300;
+    font-weight: 300!important;
 }
 
 .caption-text {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif!important;
     font-size: 0.85em!important;
-    font-weight: 300;
+    font-weight: 300!important;
+}
+
+.chat-button {
+    border-radius: 5px!important;
+    border-style: none!important;
 }

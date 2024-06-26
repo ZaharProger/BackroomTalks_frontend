@@ -1,5 +1,6 @@
 import React from 'react'
 import 'primeicons/primeicons.css'
+import 'primereact/resources/themes/lara-light-purple/theme.css'
 
 import './app.css'
 import Header from '../header/Header'
@@ -9,6 +10,13 @@ import EnterChatForm from '../form/EnterChatForm'
 
 export default function App() {
     const [chatEntered, setChatEntered] = React.useState(false)
+
+    React.useEffect(() => {
+        const classes = '.p-button-label'
+        document.querySelectorAll(classes).forEach(item => {
+            item.classList.add('semi-header-text')
+        })
+    }, [chatEntered])
 
     return (
         <div id='App'>

@@ -1,0 +1,73 @@
+#EnterChatForm {
+    padding-top: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input, label {
+    color: var(--text-color);
+}
+
+.p-stepper.p-stepper-vertical .p-stepper-panel:last-of-type .p-stepper-content {
+    padding-left: 5px!important;
+}
+
+.p-stepper.p-stepper-vertical .p-stepper-panel .p-stepper-content {
+    padding-left: 0px!important;
+}
+
+.p-inputnumber-button {
+    border-style: none!important;
+}
+
+.p-inputnumber-button-up {
+    border-radius: 0 5px 0 0!important;
+}
+
+.p-inputnumber-button-down {
+    border-radius: 0 0 5px 0!important;
+}
+
+.p-stepper-header {
+    margin-left: 20px!important;
+    margin-right: 20px!important;
+}
+
+.p-stepper-nav {
+    padding-left: 0!important;
+}
+
+.p-inputotp-input {
+    margin: 10px 0!important;
+}
+
+.seed-table {
+    flex-direction: row;
+}
+
+.seed-table-left {
+    margin: 0 20px 0 0;
+}
+
+.seed-table-right {
+    margin: 0 0 0 20px;
+}
+
+@media screen and (max-width: 850px) {
+    #EnterChatForm {
+        justify-content: start;
+    }
+
+    .seed-table {
+        flex-direction: column;
+    }
+
+    .seed-table-left {
+        margin: 0 0 10px 0;
+    }
+
+    .seed-table-right {
+        margin: 10px 0 0 0;
+    }
+}
