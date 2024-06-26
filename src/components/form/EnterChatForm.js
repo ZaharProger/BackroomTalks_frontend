@@ -35,44 +35,95 @@ export default function EnterChatForm(props) {
             item.classList.add('semi-header-text')
         })
     }, [])
-
+   
     const changeSeedHandler = React.useCallback((index, newSeedPart) => {
         setSeed(seed.map((item, i) => {
             return i == index ? newSeedPart : item
         }))
     }, [setSeed, seed])
 
+    const changeOffsetHandler = React.useCallback((newOffset) => {
+        setOffset(newOffset)
+    }, [setOffset])
+
+    const changeIterationsAmountHandler = React.useCallback((newAmount) => {
+        setIterationsAmount(newAmount)
+    }, [setIterationsAmount])
+
+    const changeUsernameHandler = React.useCallback((newUsername) => {
+        setUsername(newUsername)
+    }, [setUsername])
+
+    const validateUsername = React.useCallback(() => {
+        const regex = new RegExp(/[\s]+/)
+        return regex.test(username) || username == ''
+    }, [username])
+
+    const validateSeed = React.useCallback((part) => {
+        const regex = new RegExp(/[A-Za-z]{4}/)
+        return !regex.test(part) || part.length != 4
+    }, [])
+
+    const showErrorMessage = React.useCallback((errorType, messageText) => {
+        errorMessageRef.current.show({ 
+            severity: 'error', 
+            summary: errorType, 
+            detail: messageText, 
+            life: 3000 
+        })
+    }, [errorMessageRef])
+
     const enterChatButtonHandler = React.useCallback(() => {
         const bodyData = {
-            seed: Array.from(document.querySelectorAll('.seed'))
-                .map(input => input.value.toUpperCase())
-                .join('')
+            seed: seed.map(item => item.toUpperCase()).join('')
         }
         const headers = {
             'Content-Type': 'application/json'
         }
 
-        errorMessageRef.current.show({
-            severity: 'error',
-            summary: 'Unexpected Error',
-            detail: 'Please, try again later :(',
-            life: 3000
+        const enteredData = [...seed, offset, iterationsAmount, username]
+        const emptyFields = enteredData.filter((item, i) => {
+            let isEmpty
+            if (i == enteredData.length - 1) {
+                isEmpty = validateUsername()
+            }
+            else if (i == enteredData.length - 3 || i == enteredData.length - 2) {
+                isEmpty = item === null
+            }
+            else {
+                isEmpty = validateSeed(item)
+            }
+
+            return isEmpty
         })
-        // callApi('http://localhost:8000/api/chats/', 'POST', bodyData, headers)
-        //     .then(response => {
-        //         if (response.status == 200) {
-        //             props.callback(true)
-        //         }
-        //         else {
-        //             errorMessageRef.current.show({ 
-        //                 severity: 'error', 
-        //                 summary: 'Unexpected Error', 
-        //                 detail: 'Please, try again later :(', 
-        //                 life: 3000 
-        //             })
-        //         }
-        //     })
-    }, [props])
+
+        const sameFields = [...new Set(seed)]
+
+        if (emptyFields.length == 0 && sameFields.length == seed.length) {
+            callApi('http://localhost:8000/api/chats/enter/', 'POST', JSON.stringify(bodyData), headers)
+                .then(response => {
+                    if (response.status == 200) {
+                        props.callback({
+                            chat_entered: true, 
+                            offset,
+                            iterations_amount: iterationsAmount,
+                            username,
+                            chat_code: response.data.chat_code,
+                            chat_code_client: response.data.chat_code_client
+                        })
+                    }
+                    else {
+                        showErrorMessage('Unexpected Error', 'Please, try again later :(')
+                    }
+                })
+        }
+        else if (sameFields.length != seed.length) {
+            showErrorMessage('Validation Error', 'All words in seed-phrase must be unique')
+        }
+        else {
+            showErrorMessage('Validation Error', 'Please, fill all fields on the form according the rules')
+        }
+    }, [props, seed, username, offset, iterationsAmount])
 
     return (
         <div id='EnterChatForm'>
@@ -80,7 +131,7 @@ export default function EnterChatForm(props) {
                 <StepperPanel header="Enter seed-phrase" className="semi-header-text">
                     <div className='d-flex justify-content-center flex-column pt-4 pb-2 ps-2 pe-2'>
                         <label htmlFor="seed" className='regular-text m-auto'>
-                            Enter 8 secret words to create new chat or enter existing
+                            Enter 8 secret English words to create new chat or enter existing
                         </label>
                         <div className='seed-table d-flex m-auto mt-4'>
                             <div className='seed-table-left d-flex flex-column'>
@@ -90,6 +141,7 @@ export default function EnterChatForm(props) {
                                         if (i < 4) {
                                             component = <InputOtp key={i} value={part}
                                                 className='seed regular-text'
+                                                invalid={validateSeed(part)}
                                                 onChange={(e) => changeSeedHandler(i, e.value)}
                                                 length={4} />
                                         }
@@ -105,6 +157,7 @@ export default function EnterChatForm(props) {
                                         if (i >= 4) {
                                             component = <InputOtp key={i} value={part}
                                                 className='seed regular-text'
+                                                invalid={validateSeed(part)}
                                                 onChange={(e) => changeSeedHandler(i, e.value)}
                                                 length={4} />
                                         }
@@ -126,8 +179,9 @@ export default function EnterChatForm(props) {
                         <FloatLabel className="d-flex m-auto">
                             <InputNumber id="offset" value={offset}
                                 className="regular-text" min={-100} max={100}
-                                aria-describedby="offset-help" showButtons
-                                onValueChange={(e) => setOffset(e.target.value)} />
+                                aria-describedby="offset-help" showButtons 
+                                invalid={offset === null}
+                                onValueChange={(e) => changeOffsetHandler(e.target.value)} />
                             <label htmlFor="offset" className='regular-text'>
                                 Offset
                             </label>
@@ -137,9 +191,10 @@ export default function EnterChatForm(props) {
                         </small>
                         <FloatLabel className="d-flex me-auto ms-auto mt-5">
                             <InputNumber id="iterations-amount" value={iterationsAmount}
-                                className="regular-text" min={0} max={30000}
+                                className="regular-text" min={0} max={30000} 
+                                invalid={iterationsAmount === null}
                                 aria-describedby="iterations-amount-help" showButtons
-                                onValueChange={(e) => setIterationsAmount(e.target.value)} />
+                                onValueChange={(e) => changeIterationsAmountHandler(e.target.value)} />
                             <label htmlFor="iterations-amount" className='regular-text'>
                                 Iterations amount
                             </label>
@@ -162,7 +217,8 @@ export default function EnterChatForm(props) {
                         <FloatLabel className="d-flex m-auto">
                             <InputText id="username" value={username}
                                 className='regular-text'
-                                onChange={(e) => setUsername(e.target.value)} />
+                                invalid={ validateUsername() }
+                                onChange={(e) => changeUsernameHandler(e.target.value)} />
                             <label htmlFor="username" className='regular-text'>
                                 Your name
                             </label>

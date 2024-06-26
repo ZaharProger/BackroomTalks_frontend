@@ -9,22 +9,31 @@ import Chat from '../chat/Chat'
 import EnterChatForm from '../form/EnterChatForm'
 
 export default function App() {
-    const [chatEntered, setChatEntered] = React.useState(false)
+    const [chatConfig, setChatConfig] = React.useState({
+        chat_entered: false,
+        offset: 1,
+        iterations_amount: 1,
+        username: '',
+        chat_code: '',
+        chat_code_client: ''
+    })
 
     React.useEffect(() => {
         const classes = '.p-button-label'
         document.querySelectorAll(classes).forEach(item => {
             item.classList.add('semi-header-text')
         })
-    }, [chatEntered])
+    }, [chatConfig])
 
     return (
         <div id='App'>
-            <Header chat_entered={ chatEntered } chat_code={ '' } />
+            <Header config={chatConfig} />
             {
-                chatEntered ? 
-                    <Chat /> : 
-                    <EnterChatForm callback={(value) => setChatEntered(value)} />
+                chatConfig.chat_entered ? 
+                    <Chat config={ chatConfig } /> : 
+                    <EnterChatForm callback={(newChatConfig) => {
+                        setChatConfig({...newChatConfig})
+                    }} />
             }
             <Footer />
         </div>
