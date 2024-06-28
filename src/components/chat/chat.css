@@ -13,53 +13,68 @@
 }
 
 .message {
-    border-radius: 20px;
+    border-radius: 10px;
     border: 2px solid var(--secondary-color);
     background-color: var(--content-bg-color);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    min-width: 200px;
 }
 
 .opposite-message {
-    border-radius: 20px;
+    border-radius: 10px;
     border: 2px solid var(--secondary-opposite-color);
     background-color: var(--content-bg-color);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    min-width: 200px;
+}
+
+@media screen and (max-width: 300px) {
+    .opposite-message, .message {
+        min-width: 100px;
+    }
 }
 
 .message > p, .opposite-message > p {
+    display: flex;
+    margin-right: auto;
     color: var(--text-color);
-    padding: 5px 3px;
+    padding: 10px 15px;
+    overflow-wrap: anywhere;
 }
 
-.message-author {
+.message-sender {
     color: var(--secondary-color);
     display: flex;
     margin-left: auto;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
+    margin-right: 5px;
 }
 
-.opposite-message-author {
+.opposite-message-sender {
     color: var(--secondary-opposite-color);
     display: flex;
     margin-right: auto;
-    margin-bottom: 5px
+    margin-bottom: 1px;
+    margin-left: 5px;
 }
 
 .message-time {
     color: var(--content-bg-color);
-    padding: 3px 3px 3px 10px;
-    border-radius: 20px 0 20px 0;
+    padding: 3px 3px 3px 30px;
+    border-radius: 10px 0 0 0;
     background-color: var(--secondary-color);
     display: flex;
     margin-left: auto;
 }
 
-.message-opposite-time {
+.opposite-message-time {
     color: var(--content-bg-color);
-    padding: 3px 3px 3px 10px;
-    border-radius: 20px 0 20px 0;
+    padding: 3px 3px 3px 30px;
+    border-radius: 10px 0 0 0;
     background-color: var(--secondary-opposite-color);
     display: flex;
     margin-left: auto;
@@ -69,6 +84,7 @@
     overflow: auto;
     scrollbar-color: var(--text-color) transparent;
     scrollbar-width: thin;
+    padding: 100px 36px 50px 36px;
 }
 
 #Chat::-webkit-scrollbar{

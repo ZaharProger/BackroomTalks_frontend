@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: var(--content-bg-color);
+    background-color: var(--primary-color);
     margin: 0;
     padding: 0;
 }
@@ -34,6 +34,12 @@ body {
     font-family: "Montserrat", sans-serif!important;
     font-size: 0.85em!important;
     font-weight: 300!important;
+}
+
+.bold-caption-text {
+    font-family: "Montserrat", sans-serif!important;
+    font-size: 0.85em!important;
+    font-weight: 600!important;
 }
 
 .chat-button {

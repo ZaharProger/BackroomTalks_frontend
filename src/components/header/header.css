@@ -1,8 +1,10 @@
 #Header {
-    background: linear-gradient(to bottom, var(--content-bg-color), transparent);
+    z-index: 10000;
+    background: linear-gradient(to bottom, var(--content-bg-color) 30%, transparent);
 }
 
 #Header > h4, #Header > h6 {
     color: var(--text-color);
+    overflow-wrap: anywhere;
     text-align: center;
 }

@@ -1,5 +1,6 @@
 #EnterChatForm {
     padding-top: 150px;
+    padding-bottom: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,6 +16,12 @@ input, label {
 
 .p-stepper.p-stepper-vertical .p-stepper-panel .p-stepper-content {
     padding-left: 0px!important;
+}
+
+.p-stepper.p-stepper-vertical .p-stepper-toggleable-content,
+.p-stepper .p-stepper-panels,
+.p-stepper-action {
+    background-color: transparent!important;
 }
 
 .p-inputnumber-button {
