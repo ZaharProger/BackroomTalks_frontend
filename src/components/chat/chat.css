@@ -64,3 +64,23 @@
     display: flex;
     margin-left: auto;
 }
+
+#Chat {
+    overflow: auto;
+    scrollbar-color: var(--text-color) transparent;
+    scrollbar-width: thin;
+}
+
+#Chat::-webkit-scrollbar{
+    width: 4px;
+    height: 4px;
+    background-color: transparent;
+}
+
+#Chat::-webkit-scrollbar-thumb{
+    background-color: var(--text-color);
+}
+
+#Chat::-webkit-scrollbar-corner{
+    background-color: transparent;
+}

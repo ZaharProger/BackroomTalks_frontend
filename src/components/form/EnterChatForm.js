@@ -35,7 +35,7 @@ export default function EnterChatForm(props) {
             item.classList.add('semi-header-text')
         })
     }, [])
-   
+
     const changeSeedHandler = React.useCallback((index, newSeedPart) => {
         setSeed(seed.map((item, i) => {
             return i == index ? newSeedPart : item
@@ -65,22 +65,15 @@ export default function EnterChatForm(props) {
     }, [])
 
     const showErrorMessage = React.useCallback((errorType, messageText) => {
-        errorMessageRef.current.show({ 
-            severity: 'error', 
-            summary: errorType, 
-            detail: messageText, 
-            life: 3000 
+        errorMessageRef.current.show({
+            severity: 'error',
+            summary: errorType,
+            detail: messageText,
+            life: 3000
         })
     }, [errorMessageRef])
 
     const enterChatButtonHandler = React.useCallback(() => {
-        const bodyData = {
-            seed: seed.map(item => item.toUpperCase()).join('')
-        }
-        const headers = {
-            'Content-Type': 'application/json'
-        }
-
         const enteredData = [...seed, offset, iterationsAmount, username]
         const emptyFields = enteredData.filter((item, i) => {
             let isEmpty
@@ -100,28 +93,35 @@ export default function EnterChatForm(props) {
         const sameFields = [...new Set(seed)]
 
         if (emptyFields.length == 0 && sameFields.length == seed.length) {
-            callApi('http://localhost:8000/api/chats/enter/', 'POST', JSON.stringify(bodyData), headers)
-                .then(response => {
-                    if (response.status == 200) {
-                        props.callback({
-                            chat_entered: true, 
-                            offset,
-                            iterations_amount: iterationsAmount,
-                            username,
-                            chat_code: response.data.chat_code,
-                            chat_code_client: response.data.chat_code_client
-                        })
-                    }
-                    else {
-                        showErrorMessage('Unexpected Error', 'Please, try again later :(')
-                    }
-                })
+            const bodyData = {
+                seed: seed.map(item => item.toUpperCase()).join('')
+            }
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+            const url = 'http://localhost:8000/api/chats/enter/'
+
+            callApi(url, 'POST', JSON.stringify(bodyData), headers).then(response => {
+                if (response.status == 200) {
+                    props.callback({
+                        chat_entered: true,
+                        offset,
+                        iterations_amount: iterationsAmount,
+                        username,
+                        chat_code: response.data.chat_code,
+                        chat_code_client: response.data.chat_code_client
+                    })
+                }
+                else {
+                    showErrorMessage('Unexpected Error', 'Please, try again later :(')
+                }
+            })
         }
-        else if (sameFields.length != seed.length) {
-            showErrorMessage('Validation Error', 'All words in seed-phrase must be unique')
+        else if (emptyFields.length != 0) {
+            showErrorMessage('Validation Error', 'Please, fill all fields on the form according the rules')
         }
         else {
-            showErrorMessage('Validation Error', 'Please, fill all fields on the form according the rules')
+            showErrorMessage('Validation Error', 'All words in seed-phrase must be unique')
         }
     }, [props, seed, username, offset, iterationsAmount])
 
@@ -179,7 +179,7 @@ export default function EnterChatForm(props) {
                         <FloatLabel className="d-flex m-auto">
                             <InputNumber id="offset" value={offset}
                                 className="regular-text" min={-100} max={100}
-                                aria-describedby="offset-help" showButtons 
+                                aria-describedby="offset-help" showButtons
                                 invalid={offset === null}
                                 onValueChange={(e) => changeOffsetHandler(e.target.value)} />
                             <label htmlFor="offset" className='regular-text'>
@@ -191,7 +191,7 @@ export default function EnterChatForm(props) {
                         </small>
                         <FloatLabel className="d-flex me-auto ms-auto mt-5">
                             <InputNumber id="iterations-amount" value={iterationsAmount}
-                                className="regular-text" min={0} max={30000} 
+                                className="regular-text" min={0} max={30000}
                                 invalid={iterationsAmount === null}
                                 aria-describedby="iterations-amount-help" showButtons
                                 onValueChange={(e) => changeIterationsAmountHandler(e.target.value)} />
@@ -217,7 +217,7 @@ export default function EnterChatForm(props) {
                         <FloatLabel className="d-flex m-auto">
                             <InputText id="username" value={username}
                                 className='regular-text'
-                                invalid={ validateUsername() }
+                                invalid={validateUsername()}
                                 onChange={(e) => changeUsernameHandler(e.target.value)} />
                             <label htmlFor="username" className='regular-text'>
                                 Your name
