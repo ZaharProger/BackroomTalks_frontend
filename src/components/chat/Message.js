@@ -14,13 +14,13 @@ export default function Message(props) {
         <div className={`Message ${messageWrapAlignment}`}>
             <span className={`${senderAlignment} bold-caption-text`}>
                 {
-                    props.sender
+                    props.data.sender
                 }
             </span>
             <div className={messageAlignment}>
                 <p className='regular-text'>
                     {
-                        props.text
+                        props.data.text
                     }
                 </p>
                 <span className={`${messageTimeAlignment} caption-text`}>

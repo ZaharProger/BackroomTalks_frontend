@@ -54,7 +54,9 @@ export default function App() {
                         setChatConfig({...newChatConfig})
                     }} />
             }
-            <Footer />
+            {
+                chatConfig.chat_entered ? null : <Footer />
+            }
         </div>
     )
 }

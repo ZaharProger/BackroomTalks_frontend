@@ -156,6 +156,8 @@ export default function EnterChatForm(props) {
                                         let component = null
                                         if (i >= 4) {
                                             component = <InputOtp key={i} value={part}
+                                                id={`seed-phrase-word-${i}`}
+                                                name={`seed-phrase-word-${i}`}
                                                 className='seed regular-text'
                                                 invalid={validateSeed(part)}
                                                 onChange={(e) => changeSeedHandler(i, e.value)}
@@ -177,8 +179,8 @@ export default function EnterChatForm(props) {
                 <StepperPanel header="Setup encryption" className="semi-header-text">
                     <div className="d-flex flex-column justify-content-center pt-4 pb-2 ps-2 pe-2">
                         <FloatLabel className="d-flex m-auto">
-                            <InputNumber id="offset" value={offset}
-                                className="regular-text" min={-100} max={100}
+                            <InputNumber id="offset" name='offset' value={offset}
+                                className="regular-text" min={-1000} max={1000}
                                 aria-describedby="offset-help" showButtons
                                 invalid={offset === null}
                                 onValueChange={(e) => changeOffsetHandler(e.target.value)} />
@@ -187,10 +189,12 @@ export default function EnterChatForm(props) {
                             </label>
                         </FloatLabel>
                         <small id="offset-help" className='caption-text mt-1 me-auto ms-auto d-flex'>
-                            A number between -100 and 100
+                            A number between -1000 and 1000
                         </small>
                         <FloatLabel className="d-flex me-auto ms-auto mt-5">
-                            <InputNumber id="iterations-amount" value={iterationsAmount}
+                            <InputNumber id="iterations-amount"
+                                name='iterations-amount'
+                                value={iterationsAmount}
                                 className="regular-text" min={0} max={30000}
                                 invalid={iterationsAmount === null}
                                 aria-describedby="iterations-amount-help" showButtons
@@ -215,7 +219,8 @@ export default function EnterChatForm(props) {
                 <StepperPanel header="Introduce yourself" className="semi-header-text">
                     <div className="d-flex justify-content-center pt-4 pb-2 ps-2 pe-2">
                         <FloatLabel className="d-flex m-auto">
-                            <InputText id="username" value={username}
+                            <InputText id="username" name='username'
+                                value={username}
                                 className='regular-text'
                                 invalid={validateUsername()}
                                 onChange={(e) => changeUsernameHandler(e.target.value)} />
