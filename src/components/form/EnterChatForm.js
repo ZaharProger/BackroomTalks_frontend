@@ -55,7 +55,7 @@ export default function EnterChatForm(props) {
     }, [setUsername])
 
     const validateUsername = React.useCallback(() => {
-        const regex = new RegExp(/[\s]+/)
+        const regex = new RegExp(/^[\s]+$/)
         return regex.test(username) || username == ''
     }, [username])
 

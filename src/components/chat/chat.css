@@ -84,7 +84,7 @@
     overflow: auto;
     scrollbar-color: var(--text-color) transparent;
     scrollbar-width: thin;
-    padding: 100px 36px 50px 36px;
+    padding: 100px 36px 130px 36px;
 }
 
 #messages-container::-webkit-scrollbar{
