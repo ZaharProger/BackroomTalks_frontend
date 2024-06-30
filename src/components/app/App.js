@@ -26,22 +26,6 @@ export default function App() {
         document.querySelectorAll(classes).forEach(item => {
             item.classList.add('semi-header-text')
         })
-
-        window.onbeforeunload = () => {
-            if (chatConfig.chat_code.length != 0) {
-                const bodyData = {
-                    chat_code: chatConfig.chat_code
-                }
-                const headers = {
-                    'Content-Type': 'application/json'
-                }
-                const url = 'http://localhost:8000/api/chats/delete/'
-    
-                callApi(url, 'PUT', JSON.stringify(bodyData), headers).then(() => {
-                    
-                })
-            }
-        }
     }, [chatConfig])
 
     return (
