@@ -24,6 +24,20 @@ body {
     font-weight: 600!important;
 }
 
+@media screen and (max-width: 1000px) {
+    .header-text {
+        font-family: "Montserrat", sans-serif!important;
+        font-size: 0.9em!important;
+        font-weight: 600!important;
+    }
+    
+    .semi-header-text {
+        font-family: "Montserrat", sans-serif!important;
+        font-size: 0.8em!important;
+        font-weight: 600!important;
+    }
+}
+
 .regular-text {
     font-family: "Montserrat", sans-serif!important;
     font-size: 1em!important;

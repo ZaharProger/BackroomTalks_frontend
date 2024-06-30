@@ -11,7 +11,7 @@ export default function useApi() {
         const method = requestType.toUpperCase()
         const settings = {
             method: requestTypes.includes(method)? method : requestTypes[0],
-            credentials: 'include',
+            // credentials: 'include',
 	        headers: {
 	            'X-CSRFToken': getCookie('csrftoken'),
 	        }

@@ -25,10 +25,7 @@ export default function Message(props) {
                 </p>
                 <span className={`${messageTimeAlignment} caption-text`}>
                     {
-                        new Date().toLocaleTimeString('en-us', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })
+                        props.data.send_time
                     }
                 </span>
             </div>
