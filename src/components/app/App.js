@@ -7,7 +7,6 @@ import Header from '../header/Header'
 import Footer from '../footer/Footer'
 import Chat from '../chat/Chat'
 import EnterChatForm from '../form/EnterChatForm'
-import useApi from '../../hooks/useApi'
 
 export default function App() {
     const [chatConfig, setChatConfig] = React.useState({
@@ -18,8 +17,6 @@ export default function App() {
         chat_code: '',
         chat_code_client: ''
     })
-
-    const callApi = useApi()
 
     React.useEffect(() => {
         const classes = '.p-button-label'
